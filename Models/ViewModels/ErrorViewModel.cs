@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OdontoSimple.Models
+namespace OdontoSimple.Models.ViewModels
 {
     public class ErrorViewModel
     {
