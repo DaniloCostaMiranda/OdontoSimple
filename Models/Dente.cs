@@ -32,9 +32,9 @@ namespace OdontoSimple.Models
             Procediments.Remove(pr);
         }
 
-        public double TotalProcediment(Procediment procediment)
+        public double TotalProcediment()
         {
-            return Procediments.Sum(procediment => procediment.Valor );
+            return Procediments.Sum(x => x.Valor);
         }
     }
 }

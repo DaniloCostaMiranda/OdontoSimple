@@ -29,9 +29,11 @@
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="Views\Dentes\" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Views\Dentes\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

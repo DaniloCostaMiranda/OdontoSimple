@@ -42,7 +42,7 @@ namespace OdontoSimple.Models
             Dentes.Remove(dente);
         }
 
-        public double TotalTratamento(Procediment procediment)
+        public double TotalTratamento()
         {
             return Dentes.SelectMany(x => x.Procediments).Sum(x => x.Valor);
         }

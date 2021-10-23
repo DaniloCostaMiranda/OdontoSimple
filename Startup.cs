@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using OdontoSimple.Models;
+using OdontoSimple.Services;
 
 namespace OdontoSimple
 {
@@ -32,6 +33,7 @@ namespace OdontoSimple
             services.AddDbContext<OdontoSimpleContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("OdontoSimpleContext"),
                     builder => builder.MigrationsAssembly("OdontoSimple")));
+            services.AddScoped<DenteService>();
 
             
 
