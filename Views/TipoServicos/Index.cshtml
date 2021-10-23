@@ -1,4 +1,4 @@
-@model IEnumerable<OdontoSimple.Models.Procedimento>
+@model IEnumerable<OdontoSimple.Models.TipoServico>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Tipo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Custo)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th></th>
         </tr>
@@ -25,10 +22,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Custo)
+                @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

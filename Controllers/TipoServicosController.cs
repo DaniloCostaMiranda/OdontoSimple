@@ -9,22 +9,22 @@ using OdontoSimple.Models;
 
 namespace OdontoSimple.Controllers
 {
-    public class ProcedimentosController : Controller
+    public class TipoServicosController : Controller
     {
         private readonly OdontoSimpleContext _context;
 
-        public ProcedimentosController(OdontoSimpleContext context)
+        public TipoServicosController(OdontoSimpleContext context)
         {
             _context = context;
         }
 
-        // GET: Procedimentos
+        // GET: TipoServicos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Procedimento.ToListAsync());
+            return View(await _context.TipoServico.ToListAsync());
         }
 
-        // GET: Procedimentos/Details/5
+        // GET: TipoServicos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace OdontoSimple.Controllers
                 return NotFound();
             }
 
-            var procedimento = await _context.Procedimento
+            var tipoServico = await _context.TipoServico
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (procedimento == null)
+            if (tipoServico == null)
             {
                 return NotFound();
             }
 
-            return View(procedimento);
+            return View(tipoServico);
         }
 
-        // GET: Procedimentos/Create
+        // GET: TipoServicos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Procedimentos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: TipoServicos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Tipo,Custo")] Procedimento procedimento)
+        public async Task<IActionResult> Create([Bind("Id,Nome")] TipoServico tipoServico)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(procedimento);
+                _context.Add(tipoServico);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(procedimento);
+            return View(tipoServico);
         }
 
-        // GET: Procedimentos/Edit/5
+        // GET: TipoServicos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace OdontoSimple.Controllers
                 return NotFound();
             }
 
-            var procedimento = await _context.Procedimento.FindAsync(id);
-            if (procedimento == null)
+            var tipoServico = await _context.TipoServico.FindAsync(id);
+            if (tipoServico == null)
             {
                 return NotFound();
             }
-            return View(procedimento);
+            return View(tipoServico);
         }
 
-        // POST: Procedimentos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: TipoServicos/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Tipo,Custo")] Procedimento procedimento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] TipoServico tipoServico)
         {
-            if (id != procedimento.Id)
+            if (id != tipoServico.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace OdontoSimple.Controllers
             {
                 try
                 {
-                    _context.Update(procedimento);
+                    _context.Update(tipoServico);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProcedimentoExists(procedimento.Id))
+                    if (!TipoServicoExists(tipoServico.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace OdontoSimple.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(procedimento);
+            return View(tipoServico);
         }
 
-        // GET: Procedimentos/Delete/5
+        // GET: TipoServicos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace OdontoSimple.Controllers
                 return NotFound();
             }
 
-            var procedimento = await _context.Procedimento
+            var tipoServico = await _context.TipoServico
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (procedimento == null)
+            if (tipoServico == null)
             {
                 return NotFound();
             }
 
-            return View(procedimento);
+            return View(tipoServico);
         }
 
-        // POST: Procedimentos/Delete/5
+        // POST: TipoServicos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var procedimento = await _context.Procedimento.FindAsync(id);
-            _context.Procedimento.Remove(procedimento);
+            var tipoServico = await _context.TipoServico.FindAsync(id);
+            _context.TipoServico.Remove(tipoServico);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProcedimentoExists(int id)
+        private bool TipoServicoExists(int id)
         {
-            return _context.Procedimento.Any(e => e.Id == id);
+            return _context.TipoServico.Any(e => e.Id == id);
         }
     }
 }

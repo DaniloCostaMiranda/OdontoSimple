@@ -25,10 +25,16 @@ namespace OdontoSimple
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.AddControllersWithViews();
 
             services.AddDbContext<OdontoSimpleContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("OdontoSimpleContext")));
+                    options.UseMySql(Configuration.GetConnectionString("OdontoSimpleContext"),
+                    builder => builder.MigrationsAssembly("OdontoSimple")));
+
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
