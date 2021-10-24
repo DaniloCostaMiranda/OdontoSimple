@@ -18,5 +18,12 @@ namespace OdontoSimple.Services
         {
             return _context.Dente.ToList();
         }
+
+        public void Insert(Dente obj)
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+
+        }
     }
 }
