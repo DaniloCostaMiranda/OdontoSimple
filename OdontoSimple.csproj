@@ -31,11 +31,13 @@
     <None Remove="Views\Dentes\" />
     <None Remove="Services\" />
     <None Remove="Views\Tratamentos\" />
+    <None Remove="Services\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Views\Dentes\" />
     <Folder Include="Services\" />
     <Folder Include="Views\Tratamentos\" />
+    <Folder Include="Services\Exceptions\" />
   </ItemGroup>
 </Project>

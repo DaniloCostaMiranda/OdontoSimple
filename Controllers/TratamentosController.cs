@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using OdontoSimple.Models;
 using OdontoSimple.Services;
 using OdontoSimple.Models.ViewModels;
+using OdontoSimple.Services.Exceptions;
 
 namespace OdontoSimple.Controllers
 {
@@ -93,6 +94,49 @@ namespace OdontoSimple.Controllers
             }
 
             return View(obj);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _tratamentoService.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Dente> dentes = _denteService.FindAll();
+            TratamentoFormViewModel viewModel = new TratamentoFormViewModel { Tratamento = obj, Dentes = dentes };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Tratamento tratamento)
+        {
+            if(id != tratamento.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _tratamentoService.Update(tratamento);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundExceptions)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }
