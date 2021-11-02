@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace OdontoSimple.Models
 {
     public class Paciente
@@ -6,6 +8,8 @@ namespace OdontoSimple.Models
         public int Id { get; set; }
         public string Nome { get; set; }
         public long Telefone { get; set; }
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "e-mail")]
         public string Email { get; set; }
         public string Endereco { get; set; }
 

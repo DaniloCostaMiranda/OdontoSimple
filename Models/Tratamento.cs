@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using OdontoSimple.Models;
 
@@ -8,6 +9,7 @@ namespace OdontoSimple.Models
     public class Tratamento
     {
         public int Id { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Data { get; set; }
         //public Status Status { get; set; }
         //public int StatusId { get; set; }
