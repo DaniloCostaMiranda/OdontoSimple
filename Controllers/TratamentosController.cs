@@ -17,21 +17,13 @@ namespace OdontoSimple.Controllers
 
         private readonly DenteService _denteService;
 
-        //private readonly ProcedimentService _procedimentService;
 
-        //private readonly TipoServicoService _tipoServicoService;
-
-        //private readonly StatusService _statusService;
-
-
-        public TratamentosController(TratamentoService tratamentoService, PacienteService pacienteService, DenteService denteService, ProcedimentService procedimentService, TipoServicoService tipoServicoService, StatusService statusService)
+        public TratamentosController(TratamentoService tratamentoService, DenteService denteService)
         {
             _tratamentoService = tratamentoService;
             //_pacienteService = pacienteService;
             _denteService = denteService;
-            //_procedimentService = procedimentService;
-            //_tipoServicoService = tipoServicoService;
-            //_statusService = statusService;
+
         }
 
         public IActionResult Index()
@@ -52,22 +44,8 @@ namespace OdontoSimple.Controllers
             var tipoServicos = _tipoServicoService.FindAll();
             var viewModelsss = new TratamentoFormViewModel { TipoServicos = tipoServicos };
             return View(viewModelsss);
-
-            var procediments = _procedimentService.FindAll();
-            var viewModel = new TratamentoFormViewModel { Procediments = procediments };
-            return View(viewModel);
-
-            var statuss = _statusService.FindAll();
-            var viewModelssss = new TratamentoFormViewModel { Statuss = statuss };
-            return View(viewModelssss);
-
-            var pacient = _pacienteService.FindAll();
-            var viewModelsssss = new TratamentoFormViewModel { Pacientes = pacient };
-            return View(viewModelsssss);*/
-
-
-
-        }
+*/
+ }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -99,6 +77,22 @@ namespace OdontoSimple.Controllers
         {
             _tratamentoService.Remove(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _tratamentoService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
         }
     }
 }

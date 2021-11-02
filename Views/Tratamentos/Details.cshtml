@@ -1,0 +1,42 @@
+﻿@model OdontoSimple.Models.Tratamento
+
+<div>
+    <h4>Tratamento Conulta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dente.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Medicamentos)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Medicamentos)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Exames)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Exames)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    <a asp-action="Index">Voltar</a>
+</div>
