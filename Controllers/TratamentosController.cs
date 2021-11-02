@@ -7,6 +7,7 @@ using OdontoSimple.Models;
 using OdontoSimple.Services;
 using OdontoSimple.Models.ViewModels;
 using OdontoSimple.Services.Exceptions;
+using System.Diagnostics;
 
 namespace OdontoSimple.Controllers
 {
@@ -60,13 +61,13 @@ namespace OdontoSimple.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido"});
             }
 
             var obj = _tratamentoService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             return View(obj);
@@ -84,13 +85,13 @@ namespace OdontoSimple.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
             var obj = _tratamentoService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             return View(obj);
@@ -100,13 +101,13 @@ namespace OdontoSimple.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
             var obj = _tratamentoService.FindById(id.Value);
             if(obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             List<Dente> dentes = _denteService.FindAll();
@@ -121,22 +122,32 @@ namespace OdontoSimple.Controllers
         {
             if(id != tratamento.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Id não corresponde" });
             }
             try
             {
                 _tratamentoService.Update(tratamento);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundExceptions)
+            catch (NotFoundExceptions e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            catch (DbConcurrencyException)
+            catch (DbConcurrencyException e)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
             
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
