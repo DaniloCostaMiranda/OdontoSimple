@@ -8,30 +8,40 @@ namespace OdontoSimple.Models
     public class Tratamento
     {
         public int Id { get; set; }
-        public Paciente Paciente { get; set; }
         public DateTime Data { get; set; }
-        public Status Status { get; set; }
+        //public Status Status { get; set; }
+        //public int StatusId { get; set; }
+        //public TipoServico TipoServico { get; set; }
+        //public int TipoServicoId { get; set; }
+        public Dente Dente { get; set; }
+        public int DenteId { get; set; }
+        //public Procediment Procediment { get; set; }
+        //public int ProcedimentId { get; set; }
         public string Medicamentos { get; set; }
         public string Exames { get; set; }
-        public TipoServico TipoServico { get; set; }
-        public ICollection<Dente> Dentes { get; set; } = new List<Dente>();
+        //public Paciente Paciente { get; set; }
+        //public int PacienteId { get; set; }
 
         public Tratamento()
         {
 
         }
 
-        public Tratamento(int id, Paciente paciente, DateTime data, Status status, string medicamentos, string exames, TipoServico tipoServico)
+        public Tratamento(int id, DateTime data, string medicamentos, string exames, Dente dente )
         {
             Id = id;
-            Paciente = paciente;
+            
             Data = data;
-            Status = status;
+            //Status = status;
             Medicamentos = medicamentos;
             Exames = exames;
-            TipoServico = tipoServico;
+            //TipoServico = tipoServico;
+            //Procediment = procediment;
+            Dente = dente;
+            //Paciente = paciente;
         }
 
+        /*
         public void AddDente(Dente dente)
         {
             Dentes.Add(dente);
@@ -45,7 +55,7 @@ namespace OdontoSimple.Models
         public double TotalTratamento()
         {
             return Dentes.SelectMany(x => x.Procediments).Sum(x => x.Valor);
-        }
+        }*/
 
     }
 }

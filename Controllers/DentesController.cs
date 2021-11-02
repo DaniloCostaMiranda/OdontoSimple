@@ -11,6 +11,7 @@ namespace OdontoSimple.Controllers
     public class DentesController : Controller
     {
         private readonly DenteService _denteService;
+        
 
         public DentesController(DenteService denteService)
         {

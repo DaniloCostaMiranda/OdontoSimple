@@ -1,8 +1,8 @@
-@model OdontoSimple.Models.TipoServico
+@model OdontoSimple.Models.Procediment
 
 @{ ViewData["Title"] = "Cadastrar"; }
 
-<h4>Cadastrar Tipo do Serviço</h4>
+<h4>Cadastrar Procedimento</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +14,12 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                <label asp-for="Valor" class="control-label"></label>
+                <input asp-for="Valor" class="form-control" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

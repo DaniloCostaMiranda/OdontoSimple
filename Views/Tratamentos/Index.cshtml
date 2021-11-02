@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OdontoSimple.Models.Tratamento>
+
+@{
+    ViewData["Title"] = "Tratamento - Consulta";
+}
+
+<h1>Dentes</h1>
+
+<p>
+    <a asp-action="Create">Criar Nova</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="success">
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Medicamentos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exames)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Medicamentos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exames)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

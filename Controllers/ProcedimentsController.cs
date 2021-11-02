@@ -10,19 +10,19 @@ using OdontoSimple.Services;
 
 namespace OdontoSimple.Controllers
 {
-    public class TipoServicosController : Controller
+    public class ProcedimentsController : Controller
     {
-        private readonly TipoServicoService _tipoServicoService;
+        private readonly ProcedimentService _procedimentService;
 
 
-        public TipoServicosController(TipoServicoService tipoServicoService)
+        public ProcedimentsController(ProcedimentService procedimentService)
         {
-            _tipoServicoService = tipoServicoService;
+            _procedimentService = procedimentService;
         }
 
         public IActionResult Index()
         {
-            var list = _tipoServicoService.FindAll();
+            var list = _procedimentService.FindAll();
             return View(list);
         }
 
@@ -33,9 +33,9 @@ namespace OdontoSimple.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TipoServico tipoServico)
+        public IActionResult Create(Procediment procediment)
         {
-            _tipoServicoService.Insert(tipoServico);
+            _procedimentService.Insert(procediment);
             return RedirectToAction(nameof(Index));
         }
     }

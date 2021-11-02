@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using OdontoSimple.Models;
 using OdontoSimple.Services;
+using OdontoSimple.Data;
 
 namespace OdontoSimple
 {
@@ -33,18 +34,27 @@ namespace OdontoSimple
             services.AddDbContext<OdontoSimpleContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("OdontoSimpleContext"),
                     builder => builder.MigrationsAssembly("OdontoSimple")));
-            services.AddScoped<DenteService>();
 
-            
+            services.AddScoped<SeedingService>();
+
+            services.AddScoped<DenteService>();
+            services.AddScoped<PacienteService>();
+            services.AddScoped<ProcedimentService>();
+            services.AddScoped<StatusService>();
+            services.AddScoped<TipoServicoService>();
+            services.AddScoped<TratamentoService>();
+
+
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedingService seedingService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingService.Seed();
             }
             else
             {

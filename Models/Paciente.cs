@@ -5,7 +5,7 @@ namespace OdontoSimple.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public int Telefone { get; set; }
+        public long Telefone { get; set; }
         public string Email { get; set; }
         public string Endereco { get; set; }
 
@@ -13,7 +13,7 @@ namespace OdontoSimple.Models
         {
         }
 
-        public Paciente(int id, string nome, int telefone, string email, string endereco)
+        public Paciente(int id, string nome, long telefone, string email, string endereco)
         {
             Id = id;
             Nome = nome;

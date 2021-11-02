@@ -6,19 +6,19 @@ namespace OdontoSimple.Models
         public int Id { get; set; }
         public string Nome { get; set; }
         public double Valor { get; set; }
-        public Status Status { get; set; }
+        
 
         public Procediment()
         {
 
         }
 
-        public Procediment(int id, string nome, double valor, Status status)
+        public Procediment(int id, string nome, double valor)
         {
             Id = id;
             Nome = nome;
             Valor = valor;
-            Status = status;
+           
         }
     }
 }

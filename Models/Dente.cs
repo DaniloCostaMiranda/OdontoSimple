@@ -9,7 +9,6 @@ namespace OdontoSimple.Models
         public int Id { get; set; }
         public int Numero { get; set; }
         public string Nome { get; set; }
-        public ICollection<Procediment> Procediments { get; set; } = new List<Procediment>();
 
         public Dente()
         {
@@ -22,6 +21,7 @@ namespace OdontoSimple.Models
             Nome = nome;
         }
 
+        /*
         public void AddProcediment(Procediment pr)
         {
             Procediments.Add(pr);
@@ -36,5 +36,6 @@ namespace OdontoSimple.Models
         {
             return Procediments.Sum(x => x.Valor);
         }
+        */
     }
 }
