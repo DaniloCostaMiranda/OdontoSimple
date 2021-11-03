@@ -28,17 +28,17 @@ namespace OdontoSimple.Controllers
 
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _tratamentoService.FindAll();
+            var list =await _tratamentoService.FindAllAsync();
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
 
-            var dentes = _denteService.FindAll();
+            var dentes = await _denteService.FindAllAsync();
             var viewModelss = new TratamentoFormViewModel { Dentes = dentes };
             return View(viewModelss);
 
@@ -51,26 +51,26 @@ namespace OdontoSimple.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Tratamento tratamento)
+        public async Task<IActionResult> Create(Tratamento tratamento)
         {
             if (!ModelState.IsValid)
             {
-                var dentes = _denteService.FindAll();
+                var dentes = await _denteService.FindAllAsync();
                 var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes };
                 return View(viewModel);
             }
-            _tratamentoService.Insert(tratamento);
+            await _tratamentoService.InsertAsync(tratamento);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido"});
             }
 
-            var obj = _tratamentoService.FindById(id.Value);
+            var obj =await _tratamentoService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -81,20 +81,20 @@ namespace OdontoSimple.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _tratamentoService.Remove(id);
+            await _tratamentoService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var obj = _tratamentoService.FindById(id.Value);
+            var obj = await _tratamentoService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -103,20 +103,20 @@ namespace OdontoSimple.Controllers
             return View(obj);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var obj = _tratamentoService.FindById(id.Value);
+            var obj = await _tratamentoService.FindByIdAsync(id.Value);
             if(obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
-            List<Dente> dentes = _denteService.FindAll();
+            List<Dente> dentes = await _denteService.FindAllAsync();
             TratamentoFormViewModel viewModel = new TratamentoFormViewModel { Tratamento = obj, Dentes = dentes };
 
             return View(viewModel);
@@ -124,11 +124,11 @@ namespace OdontoSimple.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Tratamento tratamento)
+        public async Task<IActionResult> Edit(int id, Tratamento tratamento)
         {
             if (!ModelState.IsValid)
             {
-                var dentes = _denteService.FindAll();
+                var dentes =await _denteService.FindAllAsync();
                 var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes };
                 return View(viewModel);
             }
@@ -139,7 +139,7 @@ namespace OdontoSimple.Controllers
             }
             try
             {
-                _tratamentoService.Update(tratamento);
+                await _tratamentoService.UpdateAsync(tratamento);
                 return RedirectToAction(nameof(Index));
             }
             catch (NotFoundExceptions e)

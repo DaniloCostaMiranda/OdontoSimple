@@ -18,9 +18,9 @@ namespace OdontoSimple.Controllers
             _denteService = denteService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _denteService.FindAll();
+            var list = await _denteService.FindAllAsync();
             return View(list);
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using OdontoSimple.Models;
 using Microsoft.EntityFrameworkCore;
 using OdontoSimple.Services.Exceptions;
+using System.Threading.Tasks;
 
 namespace OdontoSimple.Services
 {
@@ -16,39 +17,40 @@ namespace OdontoSimple.Services
             _context = context;
         }
 
-        public List<Tratamento> FindAll()
+        public async Task<List<Tratamento>> FindAllAsync()
         {
-            return _context.Tratamento.Include(obj => obj.Dente).ToList();
+            return await _context.Tratamento.Include(obj => obj.Dente).ToListAsync();
         }
 
-        public void Insert(Tratamento obj)
+        public async Task InsertAsync(Tratamento obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Tratamento FindById(int id)
+        public async Task<Tratamento> FindByIdAsync(int id)
         {
-            return _context.Tratamento.Include(obj => obj.Dente).FirstOrDefault(obj => obj.Id == id);
+            return await _context.Tratamento.Include(obj => obj.Dente).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var obj = _context.Tratamento.Find(id);
+            var obj =await _context.Tratamento.FindAsync(id);
             _context.Tratamento.Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Tratamento obj)
+        public async Task UpdateAsync(Tratamento obj)
         {
-            if(!_context.Tratamento.Any(x => x.Id == obj.Id))
+            bool hasAny = await _context.Tratamento.AnyAsync(x => x.Id == obj.Id);
+            if (!hasAny)
             {
                 throw new NotFoundExceptions("Id não encontrado");
             }
             try
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {

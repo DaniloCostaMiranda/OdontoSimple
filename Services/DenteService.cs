@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using OdontoSimple.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace OdontoSimple.Services
 {
@@ -14,9 +16,9 @@ namespace OdontoSimple.Services
             _context = context;
         }
 
-        public List<Dente> FindAll()
+        public async Task<List<Dente>> FindAllAsync()
         {
-            return _context.Dente.ToList();
+            return await _context.Dente.OrderBy(x => x.Numero).ToListAsync();
         }
 
         public void Insert(Dente obj)
