@@ -7,18 +7,23 @@
     <div class="col-md-4">
         <form asp-action="Create">
 
+            <div asp-validation-summary="All" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="Tratamento.Data" class="control-label"></label>
                 <input asp-for="Tratamento.Data" class="form-control" />
+                <span asp-validation-for="Tratamento.Data" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <label asp-for="Tratamento.Medicamentos" class="control-label"></label>
                 <input asp-for="Tratamento.Medicamentos" class="form-control" />
+                <span asp-validation-for="Tratamento.Medicamentos" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Tratamento.Exames" class="control-label"></label>
                 <input asp-for="Tratamento.Exames" class="form-control" />
+                
             </div>
             <div class="form-group">
                 <label asp-for="Tratamento.DenteId" class="control-label"></label>
@@ -34,3 +39,6 @@
     <a asp-action="Index">VOLTAR</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

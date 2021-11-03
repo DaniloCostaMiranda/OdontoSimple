@@ -10,6 +10,7 @@ namespace OdontoSimple.Models
         public long Telefone { get; set; }
         [DataType(DataType.EmailAddress)]
         [Display(Name = "e-mail")]
+        [EmailAddress(ErrorMessage = "e-mail requerido")]
         public string Email { get; set; }
         public string Endereco { get; set; }
 

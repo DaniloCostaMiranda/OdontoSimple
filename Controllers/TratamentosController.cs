@@ -53,6 +53,12 @@ namespace OdontoSimple.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Tratamento tratamento)
         {
+            if (!ModelState.IsValid)
+            {
+                var dentes = _denteService.FindAll();
+                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes };
+                return View(viewModel);
+            }
             _tratamentoService.Insert(tratamento);
             return RedirectToAction(nameof(Index));
         }
@@ -120,7 +126,14 @@ namespace OdontoSimple.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Tratamento tratamento)
         {
-            if(id != tratamento.Id)
+            if (!ModelState.IsValid)
+            {
+                var dentes = _denteService.FindAll();
+                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes };
+                return View(viewModel);
+            }
+
+            if (id != tratamento.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não corresponde" });
             }

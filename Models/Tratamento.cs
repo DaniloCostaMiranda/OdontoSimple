@@ -9,6 +9,8 @@ namespace OdontoSimple.Models
     public class Tratamento
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "{0} mandatória")]
         [DataType(DataType.Date)]
         public DateTime Data { get; set; }
         //public Status Status { get; set; }
@@ -19,6 +21,7 @@ namespace OdontoSimple.Models
         public int DenteId { get; set; }
         //public Procediment Procediment { get; set; }
         //public int ProcedimentId { get; set; }
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0}, tamanho da descricao deve ser entre {2} e {1} caracteres")]
         public string Medicamentos { get; set; }
         public string Exames { get; set; }
         //public Paciente Paciente { get; set; }
