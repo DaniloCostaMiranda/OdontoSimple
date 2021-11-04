@@ -47,7 +47,7 @@ namespace OdontoSimple.Controllers
             var viewModelsss = new TratamentoFormViewModel { TipoServicos = tipoServicos };
             return View(viewModelsss);
 */
- }
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -170,5 +170,6 @@ namespace OdontoSimple.Controllers
             };
             return View(viewModel);
         }
+
     }
 }
