@@ -2,14 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace OdontoSimple.Migrations
 {
     [DbContext(typeof(OdontoSimpleContext))]
-    partial class OdontoSimpleContextModelSnapshot : ModelSnapshot
+    [Migration("20211105124135_profissional adicionado")]
+    partial class profissionaladicionado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,17 +145,12 @@ namespace OdontoSimple.Migrations
                         .HasColumnType("varchar(60) CHARACTER SET utf8mb4")
                         .HasMaxLength(60);
 
-                    b.Property<int>("PacienteId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ProfissionalId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DenteId");
-
-                    b.HasIndex("PacienteId");
 
                     b.HasIndex("ProfissionalId");
 
@@ -165,12 +162,6 @@ namespace OdontoSimple.Migrations
                     b.HasOne("OdontoSimple.Models.Dente", "Dente")
                         .WithMany()
                         .HasForeignKey("DenteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OdontoSimple.Models.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

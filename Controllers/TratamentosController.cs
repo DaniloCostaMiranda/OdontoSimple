@@ -15,15 +15,15 @@ namespace OdontoSimple.Controllers
     {
         private readonly TratamentoService _tratamentoService;
 
-        //private readonly PacienteService _pacienteService;
+        private readonly PacienteService _pacienteService;
 
         private readonly DenteService _denteService;
 
 
-        public TratamentosController(TratamentoService tratamentoService, DenteService denteService)
+        public TratamentosController(TratamentoService tratamentoService, DenteService denteService, PacienteService pacienteService)
         {
             _tratamentoService = tratamentoService;
-            //_pacienteService = pacienteService;
+            _pacienteService = pacienteService;
             _denteService = denteService;
 
         }
@@ -37,16 +37,11 @@ namespace OdontoSimple.Controllers
         public async Task<IActionResult> Create()
         {
 
-
+            var pacientes = await _pacienteService.FindAllAsync();
             var dentes = await _denteService.FindAllAsync();
-            var viewModelss = new TratamentoFormViewModel { Dentes = dentes };
+            var viewModelss = new TratamentoFormViewModel { Dentes = dentes, Pacientes = pacientes };
             return View(viewModelss);
 
-            /*
-            var tipoServicos = _tipoServicoService.FindAll();
-            var viewModelsss = new TratamentoFormViewModel { TipoServicos = tipoServicos };
-            return View(viewModelsss);
-*/
         }
 
         [HttpPost]
@@ -56,7 +51,8 @@ namespace OdontoSimple.Controllers
             if (!ModelState.IsValid)
             {
                 var dentes = await _denteService.FindAllAsync();
-                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes };
+                var pacientes = await _pacienteService.FindAllAsync();
+                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes, Pacientes = pacientes };
                 return View(viewModel);
             }
             await _tratamentoService.InsertAsync(tratamento);
@@ -125,7 +121,8 @@ namespace OdontoSimple.Controllers
             }
 
             List<Dente> dentes = await _denteService.FindAllAsync();
-            TratamentoFormViewModel viewModel = new TratamentoFormViewModel { Tratamento = obj, Dentes = dentes };
+            List<Paciente> pacientes = await _pacienteService.FindAllAsync();
+            TratamentoFormViewModel viewModel = new TratamentoFormViewModel { Tratamento = obj, Dentes = dentes, Pacientes = pacientes };
 
             return View(viewModel);
         }
@@ -137,7 +134,8 @@ namespace OdontoSimple.Controllers
             if (!ModelState.IsValid)
             {
                 var dentes =await _denteService.FindAllAsync();
-                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes };
+                var pacientes = await _pacienteService.FindAllAsync();
+                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes, Pacientes = pacientes };
                 return View(viewModel);
             }
 

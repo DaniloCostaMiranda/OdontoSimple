@@ -1,33 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using OdontoSimple.Models;
 
 namespace OdontoSimple.Services
 {
-    public class PacienteService
+    public class ProfissionalService
     {
         private readonly OdontoSimpleContext _context;
 
-        public PacienteService(OdontoSimpleContext context)
+        public ProfissionalService(OdontoSimpleContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Paciente>> FindAllAsync()
+        public List<Profissional> FindAll()
         {
-            return await _context.Paciente.OrderBy(x => x.Nome).ToListAsync();
+            return _context.Profissional.ToList();
         }
 
-        public void Insert(Paciente obj)
+        public void Insert(Profissional obj)
         {
             _context.Add(obj);
             _context.SaveChanges();
 
         }
+
+
+
     }
 }
-
-//OrderBy(x => x.Nome)

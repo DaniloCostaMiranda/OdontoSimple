@@ -19,4 +19,5 @@ using OdontoSimple.Models;
         public DbSet<Status> Status { get; set; }
         public DbSet<Tratamento> Tratamento { get; set; }
         public DbSet<TipoServico> TipoServico { get; set; }
+        public DbSet<Profissional> Profissional { get; set; }
 }

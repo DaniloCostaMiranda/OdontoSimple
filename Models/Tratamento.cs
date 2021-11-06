@@ -24,15 +24,15 @@ namespace OdontoSimple.Models
         [StringLength(60, MinimumLength = 3, ErrorMessage = "{0}, tamanho da descricao deve ser entre {2} e {1} caracteres")]
         public string Medicamentos { get; set; }
         public string Exames { get; set; }
-        //public Paciente Paciente { get; set; }
-        //public int PacienteId { get; set; }
+        public Paciente Paciente { get; set; }
+        public int PacienteId { get; set; }
 
         public Tratamento()
         {
 
         }
 
-        public Tratamento(int id, DateTime data, string medicamentos, string exames, Dente dente )
+        public Tratamento(int id, DateTime data, string medicamentos, string exames, Dente dente, Paciente paciente )
         {
             Id = id;
             
@@ -43,7 +43,7 @@ namespace OdontoSimple.Models
             //TipoServico = tipoServico;
             //Procediment = procediment;
             Dente = dente;
-            //Paciente = paciente;
+            Paciente = paciente;
         }
 
         /*

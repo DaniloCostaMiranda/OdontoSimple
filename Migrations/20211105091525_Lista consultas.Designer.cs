@@ -2,14 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace OdontoSimple.Migrations
 {
     [DbContext(typeof(OdontoSimpleContext))]
-    partial class OdontoSimpleContextModelSnapshot : ModelSnapshot
+    [Migration("20211105091525_Lista consultas")]
+    partial class Listaconsultas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,29 +75,6 @@ namespace OdontoSimple.Migrations
                     b.ToTable("Procediment");
                 });
 
-            modelBuilder.Entity("OdontoSimple.Models.Profissional", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Endereco")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<long>("Telefone")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Profissional");
-                });
-
             modelBuilder.Entity("OdontoSimple.Models.Status", b =>
                 {
                     b.Property<int>("Id")
@@ -143,21 +122,27 @@ namespace OdontoSimple.Migrations
                         .HasColumnType("varchar(60) CHARACTER SET utf8mb4")
                         .HasMaxLength(60);
 
-                    b.Property<int>("PacienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProfissionalId")
+                    b.Property<int?>("TratamentoRegisterId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DenteId");
 
-                    b.HasIndex("PacienteId");
-
-                    b.HasIndex("ProfissionalId");
+                    b.HasIndex("TratamentoRegisterId");
 
                     b.ToTable("Tratamento");
+                });
+
+            modelBuilder.Entity("OdontoSimple.Models.TratamentoRegister", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TratamentoRegister");
                 });
 
             modelBuilder.Entity("OdontoSimple.Models.Tratamento", b =>
@@ -168,15 +153,9 @@ namespace OdontoSimple.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OdontoSimple.Models.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OdontoSimple.Models.Profissional", null)
+                    b.HasOne("OdontoSimple.Models.TratamentoRegister", null)
                         .WithMany("Tratamentos")
-                        .HasForeignKey("ProfissionalId");
+                        .HasForeignKey("TratamentoRegisterId");
                 });
 #pragma warning restore 612, 618
         }

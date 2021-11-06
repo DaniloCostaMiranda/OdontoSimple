@@ -19,7 +19,7 @@ namespace OdontoSimple.Services
 
         public async Task<List<Tratamento>> FindAllAsync()
         {
-            return await _context.Tratamento.Include(obj => obj.Dente).ToListAsync();
+            return await _context.Tratamento.Include(obj => obj.Dente).Include(obj => obj.Paciente).ToListAsync();
         }
 
         public async Task InsertAsync(Tratamento obj)
@@ -30,7 +30,7 @@ namespace OdontoSimple.Services
 
         public async Task<Tratamento> FindByIdAsync(int id)
         {
-            return await _context.Tratamento.Include(obj => obj.Dente).FirstOrDefaultAsync(obj => obj.Id == id);
+            return await _context.Tratamento.Include(obj => obj.Dente).Include(obj => obj.Paciente).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
         public async Task RemoveAsync(int id)

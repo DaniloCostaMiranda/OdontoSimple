@@ -1,7 +1,8 @@
 ﻿@model OdontoSimple.Models.Tratamento
 
+
+<h4>Tratamento Detalhes: </h4>
 <div>
-    <h4>Tratamento Conulta</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -15,6 +16,12 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Data)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Paciente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Paciente.Nome)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Dente)

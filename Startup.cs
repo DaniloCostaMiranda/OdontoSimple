@@ -43,6 +43,7 @@ namespace OdontoSimple
             services.AddScoped<StatusService>();
             services.AddScoped<TipoServicoService>();
             services.AddScoped<TratamentoService>();
+            services.AddScoped<ProfissionalService>();
 
 
 

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Tratamento - Consulta";
 }
 
-<h1>Tratamento</h1>
+<h1>Tratamentos</h1>
 
 <p>
     <a asp-action="Create">Criar Nova</a>
@@ -14,6 +14,9 @@
         <tr class="success">
             <th>
                 @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paciente)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Dente)
@@ -34,6 +37,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Nome)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Dente.Nome)

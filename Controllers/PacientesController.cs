@@ -20,9 +20,9 @@ namespace OdontoSimple.Controllers
             _pacienteService = pacienteService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _pacienteService.FindAll();
+            var list = await _pacienteService.FindAllAsync();
             return View(list);
         }
 
@@ -35,7 +35,7 @@ namespace OdontoSimple.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Paciente paciente)
         {
-            _pacienteService.Insert(paciente);
+           _pacienteService.Insert(paciente);
             return RedirectToAction(nameof(Index));
         }
     }
