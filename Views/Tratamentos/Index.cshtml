@@ -9,6 +9,26 @@
 <p>
     <a asp-action="Create">Criar Nova</a>
 </p>
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-horizontal" asp-action="SimpleSearch">
+            <fieldset>
+                <legend>Busca simples</legend>
+                <div class="form-group">
+                    <label for="minDate" class="col-lg-2 control-label">Paciente</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="paciente" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="submit" class="btn btn-primary">Pesquisar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr class="success">

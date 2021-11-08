@@ -34,6 +34,16 @@ namespace OdontoSimple.Controllers
             return View(list);
         }
 
+        public IActionResult SimpleSearch()
+        {
+            return View();
+        }
+
+        public IActionResult GroupingSearch()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Create()
         {
 
