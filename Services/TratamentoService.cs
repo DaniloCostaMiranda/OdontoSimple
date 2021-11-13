@@ -12,12 +12,40 @@ namespace OdontoSimple.Services
     {
         private readonly OdontoSimpleContext _context;
 
-        public TratamentoService(OdontoSimpleContext context)
+        private readonly PacienteService _pacienteService;
+
+        private readonly DenteService _denteService;
+
+        public TratamentoService(OdontoSimpleContext context, DenteService denteService, PacienteService pacienteService)
         {
             _context = context;
+            _pacienteService = pacienteService;
+            _denteService = denteService;
         }
 
-        public async Task<List<Tratamento>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
+        public async Task<List<Tratamento>>FindByDateAsync(DateTime? minDate, DateTime? maxDate, string pacienteInput)
+        {
+            var result = from obj in _context.Tratamento.Include(x=>x.Paciente).Include(x=>x.Dente) select obj;
+
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.Data >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.Data <= maxDate.Value);
+            }
+
+            if(pacienteInput != null) { 
+            result = result.Where(x => x.Paciente.Nome.Contains(pacienteInput));
+            }
+
+            return await result
+                .OrderByDescending(x => x.Data)
+                .ToListAsync();
+        }
+
+        public async Task<List<Tratamento>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.Tratamento select obj;
             if (minDate.HasValue)
@@ -29,7 +57,7 @@ namespace OdontoSimple.Services
                 result = result.Where(x => x.Data <= maxDate.Value);
             }
             return await result
-                .Include(x => x.Paciente)
+                
                 .OrderByDescending(x => x.Data)
                 .ToListAsync();
         }

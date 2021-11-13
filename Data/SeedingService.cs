@@ -54,7 +54,7 @@ namespace OdontoSimple.Data
             _context.Paciente.AddRange(pa1, pa2);
             _context.TipoServico.AddRange(t1, t2);
             _context.Status.AddRange(u1, u2);
-            _context.Procediment.AddRange(pr1, pr2);
+            _context.Procediment.AddRange(pr1, pr2, pr3);
             _context.Tratamento.AddRange(tr1, tr2);
             _context.Profissional.AddRange(pf1);
 

@@ -11,14 +11,21 @@
                 <div class="form-group">
                     <label for="minDate" class="col-lg-2 control-label">Data Inicial</label>
                     <div class="col-lg-10">
-                        <input type="date"  class="form-control" name="minDate" value=@ViewData["minDate"] />
+                        <input type="date" class="form-control" name="minDate" value=@ViewData["minDate"] />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="maxDate" class="col-lg-2 control-label">Data Final</label>
                     <div class="col-lg-10">
-                        <input type="date"  class="form-control" name="maxDate" value=@ViewData["maxDate"] />
+                        <input type="date" class="form-control" name="maxDate" value=@ViewData["maxDate"] />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pacienteInput" class="col-lg-2 control-label">Paciente</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" name="pacienteInput" value=@ViewData["pacienteInput"] />
                     </div>
                 </div>
 
@@ -81,3 +88,6 @@
     </div>
 
 </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -34,7 +34,7 @@ namespace OdontoSimple.Controllers
             return View(list);
         }
 
-        public async Task<IActionResult> SimpleSearc(DateTime? minDate, DateTime? maxDate)
+        public async Task<IActionResult> SimpleSearc(DateTime? minDate, DateTime? maxDate, string pacienteInput)
         {
             
             if (!minDate.HasValue)
@@ -47,10 +47,11 @@ namespace OdontoSimple.Controllers
                 maxDate = DateTime.Now;
             }
             
-
             ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
-            var result = await _tratamentoService.FindByDateAsync(minDate, maxDate);
+            ViewData["pacienteInput"] = pacienteInput;
+
+            var result = await _tratamentoService.FindByDateAsync(minDate, maxDate, pacienteInput);
             return View(result);
         }
 
