@@ -7,6 +7,7 @@ namespace OdontoSimple.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+        [DataType(DataType.PhoneNumber)]
         public long Telefone { get; set; }
         [DataType(DataType.EmailAddress)]
         [Display(Name = "e-mail")]
