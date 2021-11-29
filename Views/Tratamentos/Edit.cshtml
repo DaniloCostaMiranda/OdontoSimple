@@ -7,6 +7,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <input type="hidden" asp-for="Tratamento.Id" />
+
             <div class="form-group">
                 <label asp-for="Tratamento.Data" class="control-label"></label>
                 <input asp-for="Tratamento.Data" class="form-control" />
@@ -16,6 +17,26 @@
                 <select asp-for="Tratamento.PacienteId" asp-items="@(new SelectList(Model.Pacientes,"Id","Nome"))" class="form-control"></select>
             </div>
             <div class="form-group">
+                <label asp-for="Tratamento.TipoServicoId" class="control-label"></label>
+                <select asp-for="Tratamento.TipoServicoId" asp-items="@(new SelectList(Model.TipoServicos,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.StatusId" class="control-label"></label>
+                <select asp-for="Tratamento.StatusId" asp-items="@(new SelectList(Model.Statuss,"Id","StatusAtual"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.DenteId" class="control-label"></label>
+                <select asp-for="Tratamento.DenteId" asp-items="@(new SelectList(Model.Dentes,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.ProcedimentId" class="control-label"></label>
+                <select asp-for="Tratamento.ProcedimentId" asp-items="@(new SelectList(Model.Procediments,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.ProfissionalId" class="control-label"></label>
+                <select asp-for="Tratamento.ProfissionalId" asp-items="@(new SelectList(Model.Profissionals,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="Tratamento.Medicamentos" class="control-label"></label>
                 <input asp-for="Tratamento.Medicamentos" class="form-control" />
             </div>
@@ -23,10 +44,7 @@
                 <label asp-for="Tratamento.Exames" class="control-label"></label>
                 <input asp-for="Tratamento.Exames" class="form-control" />
             </div>
-            <div class="form-group">
-                <label asp-for="Tratamento.DenteId" class="control-label"></label>
-                <select asp-for="Tratamento.DenteId" asp-items="@(new SelectList(Model.Dentes,"Id","Nome"))" class="form-control"></select>
-            </div>
+
             <div class="form-grup">
                 <input type="submit" value="SALVAR" class="btn btn-deafult" />
             </div>

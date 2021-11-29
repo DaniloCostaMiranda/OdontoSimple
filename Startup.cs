@@ -66,6 +66,9 @@ namespace OdontoSimple
             {
                 app.UseDeveloperExceptionPage();
                 seedingService.Seed();
+                
+
+
             }
             else
             {

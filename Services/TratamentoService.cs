@@ -16,16 +16,28 @@ namespace OdontoSimple.Services
 
         private readonly DenteService _denteService;
 
-        public TratamentoService(OdontoSimpleContext context, DenteService denteService, PacienteService pacienteService)
+        private readonly ProcedimentService _procedimentService;
+
+        private readonly StatusService _statusService;
+
+        private readonly TipoServicoService _tipoServicoService;
+
+        private readonly ProfissionalService _profissionalService;
+
+        public TratamentoService(OdontoSimpleContext context, DenteService denteService, PacienteService pacienteService, ProcedimentService procedimentService, StatusService statusService, TipoServicoService tipoServicoService, ProfissionalService profissionalService)
         {
             _context = context;
             _pacienteService = pacienteService;
             _denteService = denteService;
+            _procedimentService = procedimentService;
+            _statusService = statusService;
+            _tipoServicoService = tipoServicoService;
+            _profissionalService = profissionalService;
         }
 
         public async Task<List<Tratamento>>FindByDateAsync(DateTime? minDate, DateTime? maxDate, string pacienteInput)
         {
-            var result = from obj in _context.Tratamento.Include(x=>x.Paciente).Include(x=>x.Dente) select obj;
+            var result = from obj in _context.Tratamento.Include(x=>x.Paciente).Include(x=>x.Dente).Include(x=>x.Procediment).Include(x=>x.Status).Include(x=>x.TipoServico).Include(x=>x.Profissional) select obj;
 
             if (minDate.HasValue)
             {
@@ -45,7 +57,7 @@ namespace OdontoSimple.Services
                 .ToListAsync();
         }
 
-        public async Task<List<Tratamento>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
+        public async Task<List<IGrouping<Status, Tratamento>>>FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate, string pacienteInput)
         {
             var result = from obj in _context.Tratamento select obj;
             if (minDate.HasValue)
@@ -56,15 +68,26 @@ namespace OdontoSimple.Services
             {
                 result = result.Where(x => x.Data <= maxDate.Value);
             }
-            return await result
+            if (pacienteInput != null)
+            {
+                result = result.Where(x => x.Paciente.Nome.Contains(pacienteInput));
+            }
+
+            var inform = await result
                 
+                .Include(x => x.Paciente)
+                .Include(x => x.Profissional)
+                .Include(x=>x.Status)
                 .OrderByDescending(x => x.Data)
+                //.GroupBy(x=>x.Status)
                 .ToListAsync();
+
+            return inform.GroupBy(x=>x.Status).ToList();
         }
 
         public async Task<List<Tratamento>> FindAllAsync()
         {
-            return await _context.Tratamento.Include(obj => obj.Dente).Include(obj => obj.Paciente).ToListAsync();
+            return await _context.Tratamento.Include(obj => obj.Dente).Include(obj => obj.Paciente).Include(obj => obj.Procediment).Include(obj => obj.Status).Include(obj => obj.TipoServico).Include(obj => obj.Profissional).ToListAsync();
         }
 
         public async Task InsertAsync(Tratamento obj)
@@ -75,7 +98,7 @@ namespace OdontoSimple.Services
 
         public async Task<Tratamento> FindByIdAsync(int id)
         {
-            return await _context.Tratamento.Include(obj => obj.Dente).Include(obj => obj.Paciente).FirstOrDefaultAsync(obj => obj.Id == id);
+            return await _context.Tratamento.Include(obj => obj.Dente).Include(obj => obj.Paciente).Include(obj => obj.Procediment).Include(obj => obj.Status).Include(obj => obj.TipoServico).Include(obj => obj.Profissional).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
         public async Task RemoveAsync(int id)

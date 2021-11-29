@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace OdontoSimple.Migrations
 {
     [DbContext(typeof(OdontoSimpleContext))]
-    [Migration("20211105091525_Lista consultas")]
-    partial class Listaconsultas
+    [Migration("20211129024207_voltando")]
+    partial class voltando
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,16 +42,19 @@ namespace OdontoSimple.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Endereco")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<long>("Telefone")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Telefone")
+                        .HasColumnType("varchar(11) CHARACTER SET utf8mb4")
+                        .HasMaxLength(11);
 
                     b.HasKey("Id");
 
@@ -65,6 +68,7 @@ namespace OdontoSimple.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<double>("Valor")
@@ -75,6 +79,34 @@ namespace OdontoSimple.Migrations
                     b.ToTable("Procediment");
                 });
 
+            modelBuilder.Entity("OdontoSimple.Models.Profissional", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("varchar(11) CHARACTER SET utf8mb4")
+                        .HasMaxLength(11);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Profissional");
+                });
+
             modelBuilder.Entity("OdontoSimple.Models.Status", b =>
                 {
                     b.Property<int>("Id")
@@ -82,6 +114,7 @@ namespace OdontoSimple.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("StatusAtual")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
@@ -96,6 +129,7 @@ namespace OdontoSimple.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
@@ -122,27 +156,36 @@ namespace OdontoSimple.Migrations
                         .HasColumnType("varchar(60) CHARACTER SET utf8mb4")
                         .HasMaxLength(60);
 
-                    b.Property<int?>("TratamentoRegisterId")
+                    b.Property<int>("PacienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProcedimentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfissionalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoServicoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DenteId");
 
-                    b.HasIndex("TratamentoRegisterId");
+                    b.HasIndex("PacienteId");
+
+                    b.HasIndex("ProcedimentId");
+
+                    b.HasIndex("ProfissionalId");
+
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("TipoServicoId");
 
                     b.ToTable("Tratamento");
-                });
-
-            modelBuilder.Entity("OdontoSimple.Models.TratamentoRegister", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TratamentoRegister");
                 });
 
             modelBuilder.Entity("OdontoSimple.Models.Tratamento", b =>
@@ -153,9 +196,35 @@ namespace OdontoSimple.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OdontoSimple.Models.TratamentoRegister", null)
-                        .WithMany("Tratamentos")
-                        .HasForeignKey("TratamentoRegisterId");
+                    b.HasOne("OdontoSimple.Models.Paciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OdontoSimple.Models.Procediment", "Procediment")
+                        .WithMany()
+                        .HasForeignKey("ProcedimentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OdontoSimple.Models.Profissional", "Profissional")
+                        .WithMany()
+                        .HasForeignKey("ProfissionalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OdontoSimple.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OdontoSimple.Models.TipoServico", "TipoServico")
+                        .WithMany()
+                        .HasForeignKey("TipoServicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

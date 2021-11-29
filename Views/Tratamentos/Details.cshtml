@@ -5,45 +5,65 @@
 <div>
     <h4>Tratamento</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+
+
+
+    <dl class="col-m6">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Data)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Data)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Paciente)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Paciente.Nome)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dente.Nome)
-        </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Medicamentos)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Medicamentos)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Exames)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Exames)
         </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dente)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dente.Nome)
+        </dd>
+
+        <dt class="col-lg-5">
+            @Html.DisplayNameFor(model => model.Procediment)
+        </dt>
+        <dd class="col-lg-5">
+            @Html.DisplayFor(model => model.Procediment.Nome)
+        </dd>
+        
+        <dt class="col-lg-5">
+            @Html.DisplayNameFor(model => model.Procediment)
+        </dt>
+        <dd class="col-lg-5">
+            @Html.DisplayFor(model => model.Procediment.Valor)
+        </dd>
+      
     </dl>
-</div>
+   </div> 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">EDITAR</a>
     <a asp-action="Index">VOLTAR</a>

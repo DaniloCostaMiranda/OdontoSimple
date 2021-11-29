@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace OdontoSimple.Models
@@ -13,6 +14,12 @@ namespace OdontoSimple.Models
         public int Numero { get; set; }
         public string Nome { get; set; }
 
+        //[ForeignKey("Tratamento")]
+        //public int? TratamentoId { get; set; }
+
+        //public virtual Tratamento Tratamento { get; set; }
+
+        
         public Dente()
         {
         }

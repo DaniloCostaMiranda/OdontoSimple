@@ -1,40 +1,31 @@
 ﻿@model IEnumerable<OdontoSimple.Models.Tratamento>
 @{
-    ViewData["Title"] = "Busca Simples";
+    ViewData["Title"] = "Tratamentos";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>@ViewData["Title"]</h1>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-        <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <div class="form-group">
-                    <label for="minDate" class="col-lg-2 control-label">Data Inicial</label>
-                    <div class="col-lg-10">
-                        <input type="date" class="form-control" name="minDate" value=@ViewData["minDate"] />
+        <form class="navbar-form navbar-left" role="search" asp-action="SimpleSearc">
+            <fieldset>
+                <legend>Busca Simples</legend>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="minDate">Data Inicial</label>
+                        <input type="date" name="minDate" value=@ViewData["minDate"] class="form-control" />
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="maxDate" class="col-lg-2 control-label">Data Final</label>
-                    <div class="col-lg-10">
-                        <input type="date" class="form-control" name="maxDate" value=@ViewData["maxDate"] />
+                    <div class="col-lg-6">
+                        <label for="maxDate">Data Final</label>
+                        <input type="date" name="maxDate" value=@ViewData["maxDate"] class="form-control" />
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="pacienteInput" class="col-lg-2 control-label">Paciente</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" name="pacienteInput" value=@ViewData["pacienteInput"] />
-                    </div>
+                <div class="col-lg-6 control-label">
+                    <label for="pacienteInput">Paciente</label>
+                    <input type="text" name="pacienteInput" value=@ViewData["pacienteInput"] class="form-control" />
                 </div>
-
-                <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <button type="submit" class="btn btn-primary">Pesquisar</button>
-                    </div>
-                </div>
-            </div>
+                <button type="submit" class="btn btn-success">Pesquisar</button>
+            </fieldset>
         </form>
     </div>
 </nav>
@@ -44,16 +35,19 @@
             <thead>
                 <tr class="success">
                     <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Data)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Paciente)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Dente)
+                        @Html.DisplayNameFor(model => model.Profissional)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Exames)
+                        @Html.DisplayNameFor(model => model.Status)
                     </th>
 
                     <th></th>
@@ -62,26 +56,29 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Data)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Paciente.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Dente.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Exames)
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Data)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paciente.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Profissional.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.StatusAtual)
+                    </td>
 
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
-                        </td>
-                    </tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

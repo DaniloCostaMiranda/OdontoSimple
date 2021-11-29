@@ -1,16 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OdontoSimple.Models
 {
     public class Procediment
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "{0} mandatória")]
         public string Nome { get; set; }
+        [Required(ErrorMessage = "{0} mandatória")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Valor { get; set; }
+
+        //[ForeignKey("Tratamento")]
+        //public int? TratamentoId { get; set; }
+        
+        //public virtual Tratamento Tratamento { get; set; }
         
 
+        
         public Procediment()
         {
 
@@ -23,5 +33,6 @@ namespace OdontoSimple.Models
             Valor = valor;
            
         }
+        
     }
 }

@@ -19,12 +19,24 @@ namespace OdontoSimple.Controllers
 
         private readonly DenteService _denteService;
 
+        private readonly ProcedimentService _procedimentService;
 
-        public TratamentosController(TratamentoService tratamentoService, DenteService denteService, PacienteService pacienteService)
+        private readonly StatusService _statusService;
+
+        private readonly TipoServicoService _tipoServicoService;
+
+        private readonly ProfissionalService _profissionalService;
+
+
+        public TratamentosController(TratamentoService tratamentoService, DenteService denteService, PacienteService pacienteService, ProcedimentService procedimentService, StatusService statusService, TipoServicoService tipoServicoService, ProfissionalService profissionalService)
         {
             _tratamentoService = tratamentoService;
             _pacienteService = pacienteService;
             _denteService = denteService;
+            _procedimentService = procedimentService;
+            _statusService = statusService;
+            _tipoServicoService = tipoServicoService;
+            _profissionalService = profissionalService;
 
         }
 
@@ -39,7 +51,8 @@ namespace OdontoSimple.Controllers
             
             if (!minDate.HasValue)
             {
-                minDate = new DateTime(DateTime.Now.Year, 1, 1);
+                //minDate = new DateTime(DateTime.Now.Year, 1, 1);
+                minDate = new DateTime(1980, 1, 1);
             }
             
             if (!maxDate.HasValue)
@@ -55,9 +68,26 @@ namespace OdontoSimple.Controllers
             return View(result);
         }
 
-        public IActionResult GroupingSearc()
+        public async Task<IActionResult> GroupingSearc(DateTime? minDate, DateTime? maxDate, string pacienteInput)
         {
-            return View();
+
+            if (!minDate.HasValue)
+            {
+                minDate = new DateTime(1980, 1, 1);
+            }
+
+            if (!maxDate.HasValue)
+            {
+                maxDate = DateTime.Now;
+            }
+
+            ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
+            ViewData["pacienteInput"] = pacienteInput;
+            
+
+            var result = await _tratamentoService.FindByDateGroupingAsync(minDate, maxDate, pacienteInput);
+            return View(result);
         }
 
         public async Task<IActionResult> Create()
@@ -65,7 +95,11 @@ namespace OdontoSimple.Controllers
 
             var pacientes = await _pacienteService.FindAllAsync();
             var dentes = await _denteService.FindAllAsync();
-            var viewModelss = new TratamentoFormViewModel { Dentes = dentes, Pacientes = pacientes };
+            var procediments = await _procedimentService.FindAllAsync();
+            var statuss = await _statusService.FindAllAsync();
+            var tipoServicos = await _tipoServicoService.FindAllAsync();
+            var profissionals = await _profissionalService.FindAllAsync();
+            var viewModelss = new TratamentoFormViewModel {Dentes = dentes, Pacientes = pacientes, Procediments = procediments, Statuss = statuss, TipoServicos = tipoServicos, Profissionals = profissionals };
             return View(viewModelss);
 
         }
@@ -78,9 +112,14 @@ namespace OdontoSimple.Controllers
             {
                 var dentes = await _denteService.FindAllAsync();
                 var pacientes = await _pacienteService.FindAllAsync();
-                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes, Pacientes = pacientes };
+                var procediments = await _procedimentService.FindAllAsync();
+                var statuss = await _statusService.FindAllAsync();
+                var tipoServicos = await _tipoServicoService.FindAllAsync();
+                var profissionals = await _profissionalService.FindAllAsync();
+                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes, Pacientes = pacientes, Procediments = procediments, Statuss = statuss, TipoServicos = tipoServicos, Profissionals = profissionals };
                 return View(viewModel);
             }
+
             await _tratamentoService.InsertAsync(tratamento);
             return RedirectToAction(nameof(Index));
         }
@@ -148,7 +187,11 @@ namespace OdontoSimple.Controllers
 
             List<Dente> dentes = await _denteService.FindAllAsync();
             List<Paciente> pacientes = await _pacienteService.FindAllAsync();
-            TratamentoFormViewModel viewModel = new TratamentoFormViewModel { Tratamento = obj, Dentes = dentes, Pacientes = pacientes };
+            List<Procediment> procediments = await _procedimentService.FindAllAsync();
+            List<Status> statuss = await _statusService.FindAllAsync();
+            List<TipoServico> tipoServicos = await _tipoServicoService.FindAllAsync();
+            List<Profissional> profissionals = await _profissionalService.FindAllAsync();
+            TratamentoFormViewModel viewModel = new TratamentoFormViewModel { Tratamento = obj, Dentes = dentes, Pacientes = pacientes, Procediments = procediments, Statuss = statuss, TipoServicos = tipoServicos, Profissionals = profissionals };
 
             return View(viewModel);
         }
@@ -161,7 +204,11 @@ namespace OdontoSimple.Controllers
             {
                 var dentes =await _denteService.FindAllAsync();
                 var pacientes = await _pacienteService.FindAllAsync();
-                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes, Pacientes = pacientes };
+                var procediments = await _procedimentService.FindAllAsync();
+                var statuss = await _statusService.FindAllAsync();
+                var tipoServicos = await _tipoServicoService.FindAllAsync();
+                var profissionals = await _profissionalService.FindAllAsync();
+                var viewModel = new TratamentoFormViewModel { Tratamento = tratamento, Dentes = dentes, Pacientes = pacientes, Procediments = procediments, Statuss = statuss, TipoServicos = tipoServicos, Profissionals = profissionals };
                 return View(viewModel);
             }
 
