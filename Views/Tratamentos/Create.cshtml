@@ -41,17 +41,18 @@
                 <input asp-for="Tratamento.Exames" class="form-control" />
                 <span asp-validation-for="Tratamento.Exames" class="text-danger"></span>
             </div>
-            <div class="form-grup">
-                <input type="submit" value="CRIAR" class="btn btn-deafult" />
-            </div>
-    
+
             <div class="form-group">
                 <label asp-for="Tratamento.DenteId" class="control-label"></label>
                 <select asp-for="Tratamento.DenteId" asp-items="@(new SelectList(Model.Dentes,"Id","Nome"))" class="form-control"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Tratamento.ProcedimentId" class="control-label"></label>
-                <select asp-for="Tratamento.ProcedimentId" asp-items="@(new SelectList(Model.Procediments,"Id","Nome","Valor"))" class="form-control"></select>
+                <label asp-for="Tratamento.ProcedimentsId" class="control-label"></label>
+                <select asp-for="Tratamento.ProcedimentsId" asp-items="@(new SelectList(Model.Procediments,"Id","Nome","Valor"))" class="form-control" multiple></select>
+            </div>
+
+            <div class="form-grup">
+                <input type="submit" value="CRIAR" class="btn btn-deafult" />
             </div>
         </form>
     </div>

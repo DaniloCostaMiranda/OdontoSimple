@@ -31,28 +31,34 @@ namespace OdontoSimple.Models
         public string Exames { get; set; }
 
         //[ForeignKey("TratamentoId")]
-        public Paciente Paciente { get; set; }
+        public virtual Paciente Paciente { get; set; }
         public int PacienteId { get; set; }
 
       
-        public Profissional Profissional { get; set; }
+        public virtual Profissional Profissional { get; set; }
         public int ProfissionalId { get; set; }
         
 
         
-        public Dente Dente { get; set; }
+        public virtual Dente Dente { get; set; }
+        
         public int DenteId { get; set; }
 
-        
-        public Procediment Procediment { get; set; }
-        public int ProcedimentId { get; set; }
+
+        public List<TratamentoProcedimento> TratamentoProcedimentos { get; set; } = new List<TratamentoProcedimento>();
+
+        public List<Procediment> Procediments { get; set; } = new List<Procediment>();
+        [NotMapped]public List<int> ProcedimentsId { get; set; } = new List<int>();
+
+        //public Procediment Procediment { get; set; }
+        //public int ProcedimentId { get; set; }
 
         //[ForeignKey("TratamentoId")]
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
         public int StatusId { get; set; }
 
         //[ForeignKey("TratamentoId")]
-        public TipoServico TipoServico { get; set; }
+        public virtual TipoServico TipoServico { get; set; }
         public int TipoServicoId { get; set; }
 
 
@@ -69,7 +75,7 @@ namespace OdontoSimple.Models
            Status = status;
            TipoServico = tipoServico;
            Dente = dente;
-           Procediment = procediment;
+           //Procediment = procediment;
            Medicamentos = medicamentos;
            Exames = exames;
            Paciente = paciente;

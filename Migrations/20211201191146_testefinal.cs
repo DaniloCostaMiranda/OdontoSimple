@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OdontoSimple.Migrations
 {
-    public partial class voltando : Migration
+    public partial class testefinal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,20 +36,6 @@ namespace OdontoSimple.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Paciente", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Procediment",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: false),
-                    Valor = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Procediment", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,7 +92,6 @@ namespace OdontoSimple.Migrations
                     PacienteId = table.Column<int>(nullable: false),
                     ProfissionalId = table.Column<int>(nullable: false),
                     DenteId = table.Column<int>(nullable: false),
-                    ProcedimentId = table.Column<int>(nullable: false),
                     StatusId = table.Column<int>(nullable: false),
                     TipoServicoId = table.Column<int>(nullable: false)
                 },
@@ -123,12 +108,6 @@ namespace OdontoSimple.Migrations
                         name: "FK_Tratamento_Paciente_PacienteId",
                         column: x => x.PacienteId,
                         principalTable: "Paciente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tratamento_Procediment_ProcedimentId",
-                        column: x => x.ProcedimentId,
-                        principalTable: "Procediment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -151,6 +130,58 @@ namespace OdontoSimple.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Procediment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: false),
+                    Valor = table.Column<double>(nullable: false),
+                    TratamentoId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Procediment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Procediment_Tratamento_TratamentoId",
+                        column: x => x.TratamentoId,
+                        principalTable: "Tratamento",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TratamentoProcedimento",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TratamentoId = table.Column<int>(nullable: false),
+                    ProcedimentId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TratamentoProcedimento", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TratamentoProcedimento_Procediment_ProcedimentId",
+                        column: x => x.ProcedimentId,
+                        principalTable: "Procediment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TratamentoProcedimento_Tratamento_TratamentoId",
+                        column: x => x.TratamentoId,
+                        principalTable: "Tratamento",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Procediment_TratamentoId",
+                table: "Procediment",
+                column: "TratamentoId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Tratamento_DenteId",
                 table: "Tratamento",
@@ -160,11 +191,6 @@ namespace OdontoSimple.Migrations
                 name: "IX_Tratamento_PacienteId",
                 table: "Tratamento",
                 column: "PacienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tratamento_ProcedimentId",
-                table: "Tratamento",
-                column: "ProcedimentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tratamento_ProfissionalId",
@@ -180,10 +206,26 @@ namespace OdontoSimple.Migrations
                 name: "IX_Tratamento_TipoServicoId",
                 table: "Tratamento",
                 column: "TipoServicoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TratamentoProcedimento_ProcedimentId",
+                table: "TratamentoProcedimento",
+                column: "ProcedimentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TratamentoProcedimento_TratamentoId",
+                table: "TratamentoProcedimento",
+                column: "TratamentoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TratamentoProcedimento");
+
+            migrationBuilder.DropTable(
+                name: "Procediment");
+
             migrationBuilder.DropTable(
                 name: "Tratamento");
 
@@ -192,9 +234,6 @@ namespace OdontoSimple.Migrations
 
             migrationBuilder.DropTable(
                 name: "Paciente");
-
-            migrationBuilder.DropTable(
-                name: "Procediment");
 
             migrationBuilder.DropTable(
                 name: "Profissional");

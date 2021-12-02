@@ -14,11 +14,9 @@ namespace OdontoSimple.Models
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Valor { get; set; }
 
-        //[ForeignKey("Tratamento")]
-        //public int? TratamentoId { get; set; }
-        
-        //public virtual Tratamento Tratamento { get; set; }
-        
+
+        public List<TratamentoProcedimento> TratamentoProcedimentos { get; set; }
+
 
         
         public Procediment()

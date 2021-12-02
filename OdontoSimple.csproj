@@ -18,6 +18,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,8 @@
     <None Remove="Services\Exceptions\" />
     <None Remove="Views\TratamentoRegisters\" />
     <None Remove="Views\Profissionals\" />
+    <None Remove="Migrations\" />
+    <None Remove="Microsoft.EntityFrameworkCore.Proxies" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\ViewModels\" />
@@ -43,5 +46,6 @@
     <Folder Include="Services\Exceptions\" />
     <Folder Include="Views\TratamentoRegisters\" />
     <Folder Include="Views\Profissionals\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>
