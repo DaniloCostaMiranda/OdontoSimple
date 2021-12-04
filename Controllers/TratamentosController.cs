@@ -121,7 +121,7 @@ namespace OdontoSimple.Controllers
             }
 
             await _tratamentoService.InsertAsync(tratamento);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), tratamento.Id);
         }
 
         public async Task<IActionResult> Delete(int? id)
