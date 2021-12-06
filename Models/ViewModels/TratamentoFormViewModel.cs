@@ -8,6 +8,10 @@ namespace OdontoSimple.Models.ViewModels
         public Tratamento Tratamento { get; set; }
         public ICollection<Paciente> Pacientes { get; set; }
         public ICollection<Profissional> Profissionals { get; set; }
+        //public int TratamentoId { get; set; }
+        //public int DenteId { get; set; }
+        public ICollection<int> ProcedimentId { get; set; } = new List<int>();
+        public Dente Dente { get; set; }
         public ICollection<Dente> Dentes { get; set; } = new List<Dente>();
         public ICollection<Procediment> Procediments { get; set; } = new List<Procediment>();
         public ICollection<Status> Statuss { get; set; }

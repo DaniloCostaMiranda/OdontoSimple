@@ -15,10 +15,11 @@ namespace OdontoSimple.Models
         public double Valor { get; set; }
 
 
-        public List<TratamentoProcedimento> TratamentoProcedimentos { get; set; }
+        public List<DenteProcedimento> DenteProcedimentos { get; set; } = new List<DenteProcedimento>();
+        //public List<TratamentoProcedimento> TratamentoProcedimentos { get; set; }
 
 
-        
+
         public Procediment()
         {
 

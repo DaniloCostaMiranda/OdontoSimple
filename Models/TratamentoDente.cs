@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OdontoSimple.Models
@@ -6,28 +7,29 @@ namespace OdontoSimple.Models
     public class TratamentoDente
     {
         public int Id { get; set; }
-        
+
         public int TratamentoId { get; set; }
-        [ForeignKey("TratamentoId")]
         public virtual Tratamento Tratamento { get; set; }
 
         public int DenteId { get; set; }
-        [ForeignKey("DenteId")]
         public virtual Dente Dente { get; set; }
 
-        public TratamentoDente()
-        {
-        }
+        public List<DenteProcedimento> DenteProcedimentos { get; set; } = new List<DenteProcedimento>();
 
-        public TratamentoDente(int id, Tratamento tratamento, int tratamentoId, Dente dente, int denteId)
+        /*
+        public TratamentoProcedimento()
         {
-            Id = id;
-            Tratamento = tratamento;
-            TratamentoId = tratamentoId;
-            Dente = dente;
-            DenteId = denteId;
+
         }
+        
+        public TratamentoProcedimento(Tratamento tratamento, Procediment procediment)
+        {
+            Tratamento = tratamento;
+            Procediment = procediment;
+        }
+        */
     }
 
-   
+
+
 }

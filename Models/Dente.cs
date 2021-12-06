@@ -19,7 +19,13 @@ namespace OdontoSimple.Models
 
         //public virtual Tratamento Tratamento { get; set; }
 
-        
+        public List<TratamentoDente> TratamentoDentes { get; set; } = new List<TratamentoDente>();
+
+        public List<DenteProcedimento> DenteProcedimentos { get; set; } = new List<DenteProcedimento>();
+
+        public List<Procediment> Procediments { get; set; } = new List<Procediment>();
+        [NotMapped] public List<int> ProcedimentsId { get; set; } = new List<int>();
+
         public Dente()
         {
         }

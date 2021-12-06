@@ -2,14 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace OdontoSimple.Migrations
 {
     [DbContext(typeof(OdontoSimpleContext))]
-    partial class OdontoSimpleContextModelSnapshot : ModelSnapshot
+    [Migration("20211205025734_denteprocedimento")]
+    partial class denteprocedimento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,13 +46,10 @@ namespace OdontoSimple.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("DenteId")
+                    b.Property<int>("DenteId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProcedimentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TratamentoDenteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -58,8 +57,6 @@ namespace OdontoSimple.Migrations
                     b.HasIndex("DenteId");
 
                     b.HasIndex("ProcedimentId");
-
-                    b.HasIndex("TratamentoDenteId");
 
                     b.ToTable("DenteProcedimento");
                 });
@@ -242,19 +239,15 @@ namespace OdontoSimple.Migrations
 
             modelBuilder.Entity("OdontoSimple.Models.DenteProcedimento", b =>
                 {
-                    b.HasOne("OdontoSimple.Models.Dente", null)
+                    b.HasOne("OdontoSimple.Models.Dente", "Dente")
                         .WithMany("DenteProcedimentos")
-                        .HasForeignKey("DenteId");
+                        .HasForeignKey("DenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("OdontoSimple.Models.Procediment", "Procediment")
                         .WithMany("DenteProcedimentos")
                         .HasForeignKey("ProcedimentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OdontoSimple.Models.TratamentoDente", "TratamentoDente")
-                        .WithMany("DenteProcedimentos")
-                        .HasForeignKey("TratamentoDenteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

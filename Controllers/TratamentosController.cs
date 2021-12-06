@@ -121,7 +121,8 @@ namespace OdontoSimple.Controllers
             }
 
             await _tratamentoService.InsertAsync(tratamento);
-            return RedirectToAction(nameof(Details), tratamento.Id);
+            //return RedirectToAction(nameof(Details), new { id = tratamento.Id });
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -241,6 +242,47 @@ namespace OdontoSimple.Controllers
             };
             return View(viewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AdicionarDenteProcedimento(int tratamentoId)
+        {
+            
+
+            var viewModel = new DenteTratamentoViewModel()
+            {
+                TratamentoId = tratamentoId,
+                Dentes =await _denteService.FindAllAsync() ,
+                Procediments = await _procedimentService.FindAllAsync()
+            };
+
+            return PartialView(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdicionarDenteProcedimento(DenteTratamentoViewModel model)
+        {
+            var tratamento = await _tratamentoService.FindByIdAsync(model.TratamentoId);
+            var dente = new TratamentoDente()
+            {
+                TratamentoId =model.TratamentoId,
+                DenteId = model.DenteId
+            };
+
+            foreach (var item in model.ProcedimentId)
+            {
+                dente.DenteProcedimentos.Add(new DenteProcedimento(){
+                    ProcedimentId = item
+                }); 
+            }
+
+            tratamento.TratamentoDentes.Add(dente);
+            await _tratamentoService.UpdateAsync(tratamento);
+
+            ;
+            // Salva informações...
+            return RedirectToAction(nameof(Index));
+        }
+
 
     }
 }

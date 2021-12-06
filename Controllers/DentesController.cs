@@ -34,9 +34,9 @@ namespace OdontoSimple.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Dente dente)
+        public async Task<IActionResult> Create(Dente dente)
         {
-            _denteService.Insert(dente);
+             _denteService.Insert(dente);
             return RedirectToAction(nameof(Index));
         }
 

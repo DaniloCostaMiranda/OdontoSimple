@@ -1,0 +1,31 @@
+﻿@model OdontoSimple.Models.ViewModels.DenteTratamentoViewModel
+
+<form action="/Tratamentos/AdicionarDenteProcedimento" method="POST">
+    <input type="hidden" asp-for="TratamentoId" />
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">×</button>
+                <h4 class="modal-title" id="modalCadastrarDenteLabel">Atenção!</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Dente</label>
+                    <select asp-for="DenteId" asp-items="@(new SelectList(Model.Dentes,"Id","Nome"))" class="form-control"></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Procedimentos</label>
+                    <select asp-for="ProcedimentId" asp-items="@(new SelectList(Model.Procediments,"Id","Nome"))" class="form-control" multiple></select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" style="width: 100px;">SALVAR</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 100px;">CANCELAR</button>
+            </div>
+        </div>
+    </div>
+</form>

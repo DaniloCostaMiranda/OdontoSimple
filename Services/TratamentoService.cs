@@ -38,7 +38,7 @@ namespace OdontoSimple.Services
 
         public async Task<List<Tratamento>>FindByDateAsync(DateTime? minDate, DateTime? maxDate, string pacienteInput)
         {
-            var result = from obj in _context.Tratamento.Include(x=>x.Paciente).Include(x=>x.Dente).Include(x=>x.TratamentoProcedimentos).Include(x=>x.Status).Include(x=>x.TipoServico).Include(x=>x.Profissional) select obj;
+            var result = from obj in _context.Tratamento.Include(x=>x.Paciente).Include(x=>x.TratamentoDentes).Include(x=>x.Status).Include(x=>x.TipoServico).Include(x=>x.Profissional) select obj;
 
             if (minDate.HasValue)
             {
@@ -88,35 +88,29 @@ namespace OdontoSimple.Services
 
         public async Task<List<Tratamento>> FindAllAsync()
         {
-            return await _context.Tratamento.Include(obj => obj.Dente).Include(obj => obj.Paciente).Include(obj => obj.Status).Include(obj => obj.TipoServico).Include(obj => obj.Profissional).Include(obj => obj.TratamentoProcedimentos).ToListAsync();
+            return await _context.Tratamento.Include(obj => obj.TratamentoDentes).Include(obj => obj.Paciente).Include(obj => obj.Status).Include(obj => obj.TipoServico).Include(obj => obj.Profissional).ToListAsync();
         }
 
         public async Task InsertAsync(Tratamento obj)
         {
-            foreach (var item in obj.ProcedimentsId)
+            foreach (var item in obj.DentesId)
             {
-                obj.TratamentoProcedimentos.Add(new TratamentoProcedimento()
+                obj.TratamentoDentes.Add(new TratamentoDente()
                 {
-                    ProcedimentId = item
+                    DenteId = item
                 });
             }
+          
             _context.Add(obj);
             await _context.SaveChangesAsync();
         }
 
         public async Task<Tratamento> FindByIdAsync(int id)
         {
-            var tratamento =  await _context.Tratamento.Include(obj => obj.Dente).Include(obj => obj.Paciente).Include(obj => obj.Status).Include(obj => obj.TipoServico).Include(obj => obj.Profissional).Include(obj => obj.TratamentoProcedimentos).FirstOrDefaultAsync(obj => obj.Id == id);
+            var tratamento =  await _context.Tratamento.Include(obj => obj.TratamentoDentes).Include(obj => obj.Paciente).Include(obj => obj.Status).Include(obj => obj.TipoServico).Include(obj => obj.Profissional).FirstOrDefaultAsync(obj => obj.Id == id);
 
-            foreach (var item in tratamento.TratamentoProcedimentos)
-            {
-                var procedimento = await _context.Procediment.FindAsync(item.ProcedimentId);
-                tratamento.Procediments.Add(new Procediment()
-                {
-                    Nome = procedimento.Nome,
-                    Valor = procedimento.Valor
-                }); ;
-            }
+           
+         
 
             return tratamento;
         }
