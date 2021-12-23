@@ -1,0 +1,76 @@
+﻿@model OdontoSimple.Models.ViewModels.TratamentoFormViewModel
+
+
+<h1>Iniciar Tratamento</h1>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Tratamento.TipoServicoId" class="control-label"></label>
+                <select asp-for="Tratamento.TipoServicoId" asp-items="@(new SelectList(Model.TipoServicos,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.ProfissionalId" class="control-label"></label>
+                <select asp-for="Tratamento.ProfissionalId" asp-items="@(new SelectList(Model.Profissionals,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.Data" class="control-label"></label>
+                <input asp-for="Tratamento.Data" class="form-control" />
+                <span asp-validation-for="Tratamento.Data" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.PacienteId" class="control-label"></label>
+                <select asp-for="Tratamento.PacienteId" asp-items="@(new SelectList(Model.Pacientes,"Id","Nome"))" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Tratamento.StatusId" class="control-label"></label>
+                <select asp-for="Tratamento.StatusId" asp-items="@(new SelectList(Model.Statuss,"Id","StatusAtual"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.Medicamentos" class="control-label"></label>
+                <input asp-for="Tratamento.Medicamentos" class="form-control" />
+                <span asp-validation-for="Tratamento.Medicamentos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.Exames" class="control-label"></label>
+                <input asp-for="Tratamento.Exames" class="form-control" />
+                <span asp-validation-for="Tratamento.Exames" class="text-danger"></span>
+            </div>
+            <hr />
+            
+        <div class="form-group">
+            <label asp-for="Tratamento.DenteId" class="control-label"></label>
+            <select asp-for="Tratamento.DenteId" asp-items="@(new SelectList(Model.Dentes,"Id","Nome"))" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tratamento.ProcedimentsId" class="control-label"></label>
+            <select asp-for="Tratamento.ProcedimentsId" asp-items="@(new SelectList(Model.Procediments,"Id","Nome","Valor"))" class="form-control" multiple></select>
+        </div>
+
+            <div class="form-group">
+                <input type="submit" value="CRIAR" class="btn btn-success" />
+            </div>
+        </form>
+
+    </div>
+  
+       
+ </div>
+
+
+
+  
+
+
+        <div>
+            <a asp-action="Index">VOLTAR</a>
+        </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

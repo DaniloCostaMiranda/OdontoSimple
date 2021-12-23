@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Models\ViewModels\" />
+    <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="Pomelo.EntityFrameworkCore.MySql" />
+    <None Remove="Microsoft.EntityFrameworkCore.Design" />
+    <None Remove="Views\Dentes\" />
+    <None Remove="Services\" />
+    <None Remove="Views\Tratamentos\" />
+    <None Remove="Services\Exceptions\" />
+    <None Remove="Views\TratamentoRegisters\" />
+    <None Remove="Views\Profissionals\" />
+    <None Remove="Migrations\" />
+    <None Remove="Microsoft.EntityFrameworkCore.Proxies" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\ViewModels\" />
+    <Folder Include="Views\Dentes\" />
+    <Folder Include="Services\" />
+    <Folder Include="Views\Tratamentos\" />
+    <Folder Include="Services\Exceptions\" />
+    <Folder Include="Views\TratamentoRegisters\" />
+    <Folder Include="Views\Profissionals\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\Imagens\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Imagens\Logo_azulay.jpg" />
+    <Content Remove="wwwroot\Imagens\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\Imagens\Logo_azulay.jpg" />
+  </ItemGroup>
+</Project>

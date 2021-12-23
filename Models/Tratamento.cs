@@ -1,0 +1,113 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using OdontoSimple.Models;
+
+namespace OdontoSimple.Models
+{
+    public class Tratamento
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "{0} mandatória")]
+        [DataType(DataType.Date)]
+        public DateTime Data { get; set; }
+
+        /*
+        [ForeignKey("DenteId")]
+        public virtual Dente Dente { get; set; }
+        public int DenteId { get; set; }
+
+        [ForeignKey("ProcedimentId")]
+        public virtual Procediment Procediment { get; set; }
+        public int ProcedimentId { get; set; }
+        */
+
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0}, tamanho da descricao deve ser entre {2} e {1} caracteres")]
+        public string Medicamentos { get; set; }
+
+        public string Exames { get; set; }
+
+        //[ForeignKey("TratamentoId")]
+        public virtual Paciente Paciente { get; set; }
+        [Display(Name = "Paciente")]
+        public int PacienteId { get; set; }
+
+      
+        public virtual Profissional Profissional { get; set; }
+        [Display(Name = "Profissional")]
+        public int ProfissionalId { get; set; }
+        
+
+        
+        public virtual Dente Dente { get; set; }
+
+        [Display(Name = "Dente")]
+        public int DenteId { get; set; }
+
+
+        public List<TratamentoProcedimento> TratamentoProcedimentos { get; set; } = new List<TratamentoProcedimento>();
+
+        public List<Procediment> Procediments { get; set; } = new List<Procediment>();
+
+        [Display(Name = "Procedimentos")]
+        [NotMapped]public List<int> ProcedimentsId { get; set; } = new List<int>();
+
+        //public Procediment Procediment { get; set; }
+        //public int ProcedimentId { get; set; }
+
+        //[ForeignKey("TratamentoId")]
+        public virtual Status Status { get; set; }
+
+        [Display(Name = "Status")]
+        public int StatusId { get; set; }
+
+        //[ForeignKey("TratamentoId")]
+        public virtual TipoServico TipoServico { get; set; }
+
+        [Display(Name = "Tipo do Servico")]
+        public int TipoServicoId { get; set; }
+
+
+        
+       public Tratamento()
+       {
+
+       }
+
+       public Tratamento(int id, DateTime data, Status status, TipoServico tipoServico, Dente dente, Procediment procediment, Paciente paciente, Profissional profissional, string medicamentos, string exames )
+       {
+           Id = id;
+           Data = data;
+           Status = status;
+           TipoServico = tipoServico;
+           Dente = dente;
+           //Procediment = procediment;
+           Medicamentos = medicamentos;
+           Exames = exames;
+           Paciente = paciente;
+           Profissional = profissional;
+
+
+       }
+
+        /*
+       public void AddDente(Dente dente)
+       {
+           Dentes.Add(dente);
+       }
+
+       public void RemoveDente(Dente dente)
+       {
+           Dentes.Remove(dente);
+       }
+
+       public double TotalTratamento()
+       {
+           return Dentes.SelectMany(x => x.Procediments).Sum(x => x.Valor);
+       }*/
+
+    }
+}

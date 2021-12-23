@@ -1,0 +1,112 @@
+﻿@model OdontoSimple.Models.ViewModels.TratamentoFormViewModel
+
+
+<h4>Editar Tratamento:</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <img src="/Imagens/Numeros.png" />
+    </div>
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Tratamento.Id" />
+            <div class="form-group">
+                <label>Tratamento Id</label>
+                <input asp-for="Tratamento.Id" />
+            </div>
+
+            <table class="table">
+                <tr>
+                    
+                    <th>Dente</th>
+                    <th>Procedimentos</th>
+                </tr>
+
+                @foreach (var item in Model.Dentes)
+                {
+                    <tr>
+                        
+                        <td>@item.Nome</td>
+                        <td>
+                            @foreach (var proc in item.Nome)
+                            {
+                                <label>@proc ,</label>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <button type="button" onclick="abrir()">Inserir Dente / Procedimentos</button>
+
+            <script>
+        function abrir() {
+    $("#modalCadastrarDente").load("/Tratamentos/AddDenteProcedimento?tratamentoId=@Model.Tratamento.Id",
+                function () {
+                    $("#modalCadastrarDente").modal("show");
+                });
+        }</script>
+
+            <div class="form-group">
+                <label asp-for="Tratamento.Data" class="control-label"></label>
+                <input asp-for="Tratamento.Data" class="form-control" />
+            </div>
+            <div class="form-group" type="hidden">
+                <label asp-for="Tratamento.PacienteId" class="control-label"></label>
+                <select asp-for="Tratamento.PacienteId" asp-items="@(new SelectList(Model.Pacientes,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.TipoServicoId" class="control-label"></label>
+                <select asp-for="Tratamento.TipoServicoId" asp-items="@(new SelectList(Model.TipoServicos,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.StatusId" class="control-label"></label>
+                <select asp-for="Tratamento.StatusId" asp-items="@(new SelectList(Model.Statuss,"Id","StatusAtual"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.ProfissionalId" class="control-label"></label>
+                <select asp-for="Tratamento.ProfissionalId" asp-items="@(new SelectList(Model.Profissionals,"Id","Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.Medicamentos" class="control-label"></label>
+                <input asp-for="Tratamento.Medicamentos" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Tratamento.Exames" class="control-label"></label>
+                <input asp-for="Tratamento.Exames" class="form-control" />
+            </div>
+            @*
+        <hr />
+
+        <div class="form-group">
+            <label asp-for="Tratamento.DenteId" class="control-label"></label>
+            <select asp-for="Tratamento.DenteId" asp-items="@(new SelectList(Model.Dentes,"Id","Nome"))" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tratamento.ProcedimentsId" class="control-label"></label>
+            <select asp-for="Tratamento.ProcedimentsId" asp-items="@(new SelectList(Model.Procediments,"Id","Nome"))" class="form-control" multiple></select>
+        </div>
+            *@
+
+            <div class="form-grup">
+                <input type="submit" value="SALVAR" class="btn btn-success" />
+            </div>
+
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit">VOLTAR</a>
+ 
+</div>
+
+<div class="modal fade" id="modalCadastrarDente" tabindex="-1" role="dialog" aria-labelledby="modalCadastrarDenteLabel" aria-hidden="true">
+</div>
+
+@*
+    <div>
+        <a asp-action="Index">VOLTAR</a>
+    </div>
+*@
+
+
